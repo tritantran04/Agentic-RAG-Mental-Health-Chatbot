@@ -153,7 +153,7 @@ Mental-Health-Chatbot/
 ├── agent.py              # LangGraph agent, tools and workflow
 ├── data.py               # Medical data loading and ChromaDB setup
 ├── prompts.py            # System prompt, tool-instruction prompts, summary prompt
-├── medical_data.json     # Medical data
+├── medical_data.json     # Vinmec data
 ├── requirements.txt      # Python dependencies
 └── README.md
 ```
