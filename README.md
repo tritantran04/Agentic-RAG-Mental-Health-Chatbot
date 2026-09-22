@@ -184,7 +184,7 @@ Recommended environment:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/tritantran04/Mental-Health-Chatbot.git
+git clone https://github.com/tritantran04/Agentic-RAG-Mental-Health-Chatbot.git
 cd Mental-Health-Chatbot
 ```
 
