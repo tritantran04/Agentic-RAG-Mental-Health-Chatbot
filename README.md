@@ -1,6 +1,6 @@
-# Agentic RAG Medical Chatbot
+# Agentic RAG Mental Health Chatbot
 
-An **Agentic RAG (Retrieval-Augmented Generation) chatbot** for medical information retrieval and conversational assistance. The system combines a **Vietnamese medical knowledge base from Vinmec** with **real-time web search** so that the chatbot can answer questions using internal medical documents when relevant and search the Internet when up-to-date information is required.
+An **Agentic RAG (Retrieval-Augmented Generation) Mental Health chatbot** for medical information retrieval and conversational assistance. The system combines a **Vietnamese medical knowledge base from Vinmec** with **real-time web search** so that the chatbot can answer questions using internal medical documents when relevant and search the Internet when up-to-date information is required.
 
 > **Disclaimer:** This project is intended for educational and information-retrieval purposes. It is not a substitute for diagnosis, treatment, or professional medical advice.
 
