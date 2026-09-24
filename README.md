@@ -39,7 +39,7 @@ LangGraph Agent
   |                             |                    |
   v                             v                    v
  RAG                         Web Search           Direct Answer
-(retriever_tool)            (search_web)          (no tool needed)
+(retriever_tool)            (search_web)          (no tool)
   |                             |                    |
   v                             v                    |
 Chroma Vector Store          Web Results             |
