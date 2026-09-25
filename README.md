@@ -1,8 +1,8 @@
-# Agentic RAG Mental Health Chatbot
+# Agentic Mental Health Chatbot
 
-An **Agentic RAG (Retrieval-Augmented Generation) Mental Health chatbot** for medical information retrieval and conversational assistance. The system combines a **Vietnamese medical knowledge base from Vinmec** with **real-time web search** so that the chatbot can answer questions using internal medical documents when relevant and search the Internet when up-to-date information is required.
+An **Agentic Mental Health chatbot** for medical information retrieval and conversational assistance. The system combines a **Vietnamese medical knowledge base from Vinmec** with **real-time web search** so that the chatbot can answer questions using internal medical documents when relevant and search the Internet when up-to-date information is required.
 
-> **Disclaimer:** This project is intended for educational and information-retrieval purposes. It is not a substitute for diagnosis, treatment, or professional medical advice.
+> **Disclaimer:** This project is not a substitute for diagnosis, treatment, or professional medical advice.
 
 ## Overview
 
@@ -33,7 +33,7 @@ User
 Summarize History
   |
   v
-LangGraph Agent
+Agent (LangGraph)
   |
   +-----------------------------+-------------------+
   |                             |                    |
@@ -42,7 +42,7 @@ LangGraph Agent
 (retriever_tool)            (search_web)          (no tool)
   |                             |                    |
   v                             v                    |
-Chroma Vector Store          Web Results             |
+ChromaDB                    Web Results              |
   |                             |                    |
   +-------------+---------------+                    |
                 |                                    |
@@ -85,7 +85,7 @@ The agent decides whether to call `retriever_tool` or `search_web` based on the 
 
 ### 3. Conversation Summarization
 
-Before the agent runs, `summarize_history` checks the accumulated conversation. Instead of cutting the history by a raw message count (which can split a question from its own answer, or from the tool-call/tool-result messages that produced it), it first groups messages into **full turns** — each turn starts at the user's message and ends at the model's final answer (i.e. an `AIMessage` with no pending `tool_calls`). Only whole turns are ever summarized or dropped, so a question and its answer always stay together. A configurable number of the most recent turns (`K_TURNS`) are kept raw; older turns are compressed into a single summary message via the `SUMMARY_HISTORY` prompt, which is prepended back into the conversation state.
+`summarize_history` groups messages into full turns (a turn starts at the user's message and ends at the model's final answer), so a question and its answer are never split apart. The most recent `K_TURNS` turns are kept raw; older turns are summarized via the `SUMMARY_HISTORY` prompt
 
 ### 4. RAG
 
@@ -143,7 +143,7 @@ The current configuration uses a single, hardcoded thread ID:
 config = {"configurable": {"thread_id": "user_1"}}
 ```
 
-This allows the graph to maintain conversation state across requests during execution, but note that **all users currently share the same thread (`"user_1"`)** — the app is effectively single-session. Supporting multiple concurrent users would require generating a distinct `thread_id` per user/session instead of using a fixed value.
+This allows the graph to maintain conversation state across requests during execution, but note that **all users currently share the same thread (`"user_1"`)** the app is effectively single-session. Supporting multiple concurrent users would require generating a distinct `thread_id` per user/session instead of using a fixed value.
 
 ## Project Structure
 
@@ -184,7 +184,7 @@ Recommended environment:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/tritantran04/Agentic-RAG-Mental-Health-Chatbot.git
+git clone https://github.com/tritantran04/Agentic-Mental-Health-Chatbot.git
 cd Mental-Health-Chatbot
 ```
 
@@ -222,15 +222,7 @@ This loads and chunks the medical data, generates embeddings with `gemini-embedd
 ### 2. Start the chatbot
 
 ```bash
-python agent.py
-```
-
-This starts an interactive command-line loop. Type your question and press Enter; type `exit` or `end` to quit.
-
-Example user query:
-
-```text
-Trầm cảm có những triệu chứng phổ biến nào?
+python agent.py      # Run chatbot in terminal
 ```
 
 The processing flow is approximately:
@@ -301,14 +293,6 @@ Final answer
 - **Conversation state management** with LangGraph `MemorySaver`
 - **Turn-aware history summarization**, compressing older conversation turns without splitting a question from its own answer
 - **Source-aware retrieval**, preserving document metadata and web URLs
-
-## Limitations
-
-- The quality of answers depends on the quality and coverage of the Vinmec dataset and retrieved web results.
-- Web search depends on Tavily availability and Internet access.
-- The current ChromaDB persistence path is configured in `data.py` and may need to be changed for another machine/environment.
-- The chatbot currently uses a single hardcoded `thread_id` (`"user_1"`), so conversation memory is shared across all users rather than isolated per user/session.
-- The project is a prototype for learning and research and should not be used as a medical diagnostic system.
 
 ## Author
 **Tran Tri Tan**
