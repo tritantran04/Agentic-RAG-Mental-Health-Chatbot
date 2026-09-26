@@ -186,78 +186,15 @@ GOOGLE_API_KEY=your_google_gemini_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
-Do **not** commit the `.env` file or expose API keys publicly.
-
 ## Run the Chatbot
 
-### 1. Build the vector database (first run only)
-
-Make sure `medical_data.json` is present in the project root, then run:
-
 ```bash
-python data.py
+python data.py        # Run chatbot in terminal
 ```
 
-This loads and chunks the medical data, generates embeddings with `gemini-embedding-2`, and persists them to the local ChromaDB directory configured by `persist_dir` in `data.py`. On later runs, if the collection already contains documents, this step is skipped automatically and the existing database is reused.
+On the first run, this loads the medical data, generates embeddings with `gemini-embedding-2`, and persists them to the local ChromaDB directory configured by `persist_dir` in `data.py`. On later runs, if the collection already contains documents, this step is skipped automatically and the existing database is reused.
 
-> **Note:** `persist_dir` in `data.py` is currently a hardcoded local path. Update it to match your own machine before running.
-
-### 2. Start the chatbot
-
-```bash
-python agent.py      # Run chatbot in terminal
-```
-
-The processing flow is approximately:
-
-```text
-User Question
-     |
-     v
-LangGraph Agent
-     |
-     v
-Medical question?
-     |
-     v
-retriever_tool
-     |
-     v
-Chroma similarity search (top 4)
-     |
-     v
-Relevant Vinmec documents
-     |
-     v
-Gemini 3 Flash Preview
-     |
-     v
-Final answer
-```
-
-the agent can select `search_web` instead:
-
-```text
-User Question
-     |
-     v
-LangGraph Agent
-     |
-     v
-search_web
-     |
-     v
-Tavily Search
-     |
-     v
-Web Results
-     |
-     v
-Gemini 3 Flash Preview
-     |
-     v
-Final answer
-```
+> **Note:** `persist_dir` in `data.py` is currently a hardcoded local path.
 
 ## Key Features
 
