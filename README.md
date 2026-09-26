@@ -126,7 +126,7 @@ The current configuration uses a single, hardcoded thread ID:
 config = {"configurable": {"thread_id": "user_1"}}
 ```
 
-This allows the graph to maintain conversation state across requests during execution, but note that **all users currently share the same thread (`"user_1"`)** the app is effectively single-session. Supporting multiple concurrent users would require generating a distinct `thread_id` per user/session instead of using a fixed value.
+The workflow uses `MemorySaver` to maintain state per `sessionId`, so multiple concurrent sessions are supported. 
 
 ## Project Structure
 
