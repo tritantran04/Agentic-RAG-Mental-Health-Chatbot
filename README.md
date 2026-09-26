@@ -264,12 +264,10 @@ Final answer
 - **Agentic tool selection** using LangGraph
 - **RAG-based medical question answering** using Vinmec documents
 - **Vector similarity search** with ChromaDB
-- **Semantic embeddings** using Google's `gemini-embedding-2`
 - **Real-time web search** through Tavily
 - **LLM tool calling** for dynamic retrieval decisions
 - **Conversation state management** with LangGraph `MemorySaver`
 - **Turn-aware history summarization**, compressing older conversation turns without splitting a question from its own answer
-- **Source-aware retrieval**, preserving document metadata and web URLs
 
 ## Author
 **Tran Tri Tan**
