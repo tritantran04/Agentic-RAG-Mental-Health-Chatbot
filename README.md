@@ -66,28 +66,11 @@ gemini-3-flash-preview
 
 The model is used for tool selection, final answer generation, and summarizing conversation history.
 
-### 2. Agentic Workflow
-
-The agent workflow is implemented with **LangGraph**.
-
-The main workflow is:
-
-```text
-START
-  -> summarize_history
-  -> agent
-  -> retrieve OR search_web OR END
-  -> generate_answer
-  -> END
-```
-
-The agent decides whether to call `retriever_tool` or `search_web` based on the user's question.
-
-### 3. Conversation Summarization
+### 2. Conversation Summarization
 
 `summarize_history` groups messages into full turns (a turn starts at the user's message and ends at the model's final answer), so a question and its answer are never split apart. The most recent `K_TURNS` turns are kept raw; older turns are summarized via the `SUMMARY_HISTORY` prompt
 
-### 4. RAG
+### 3. RAG
 
 The repository contains `medical_data.json`, which stores structured medical articles and their text chunks.
 
@@ -112,7 +95,7 @@ vector_store.similarity_search(query, k=4)
 
 Retrieved documents include metadata such as article title, category, URL, tags, and chunk information.
 
-### 5. Web Search
+### 4. Web Search
 
 The chatbot uses **Tavily Search** for Internet retrieval.
 
@@ -125,7 +108,7 @@ Web search is intended for:
 
 The search result URL and content are passed to the answer-generation step.
 
-### 6. Prompts
+### 5. Prompts
 
 All system and instruction prompts live in `prompts.py`:
 
@@ -133,7 +116,7 @@ All system and instruction prompts live in `prompts.py`:
 - `RETRIEVER_INSTRUCTION` / `SEARCH_WEB_INSTRUCTION` / `NO_TOOL_INSTRUCTION` short task instructions selected in `generate_answer` depending on which tool (if any) was used to answer the current question.
 - `SUMMARY_HISTORY` the prompt used by `summarize_history` to compress older conversation turns into a concise summary.
 
-### 7. Conversation Memory
+### 6. Conversation Memory
 
 The LangGraph workflow uses `MemorySaver` to maintain conversation state by thread.
 
