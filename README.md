@@ -252,12 +252,6 @@ Gemini 3 Flash Preview
 Final answer
 ```
 
-For a query requiring current information, for example:
-
-```text
-Có thông tin y tế mới nào liên quan đến ...?
-```
-
 the agent can select `search_web` instead:
 
 ```text
